@@ -24,6 +24,11 @@ struct ContainerView : View {
 
 final class CoordinatorService: ObservableObject {
     
+    enum State {
+        case root
+        case end
+    }
+    
     static let instance = CoordinatorService()
     
     @Published var modalVisibled = false
@@ -63,4 +68,13 @@ final class CoordinatorService: ObservableObject {
         }
     }
     
+    func next(state: State) {
+        switch state {
+            case .root :
+                self.stack.removeAll()
+                self.push(view: ColoredView())
+            case.end:
+                self.push(view: ColoredView(index: 6))
+        }
+    }
 }

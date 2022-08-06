@@ -18,6 +18,7 @@ struct ColoredView: View {
             HelloPlace()
             NextPlace()
             ModalaPlace()
+            CoordinatorPlace()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(viewColor)
@@ -82,6 +83,31 @@ struct ColoredView: View {
             }
         }
         .offset(y: 120)
+    }
+
+    private func CoordinatorPlace() -> some View {
+        HStack {
+            Button {
+                Coordinator.next(state: .root)
+            } label: {
+                Text("ROOT")
+                    .foregroundColor(.white)
+                    .fontWeight(.heavy)
+            }
+            .padding()
+            .border(.white, width: 1)
+
+            Button {
+                Coordinator.next(state: .end)
+            } label: {
+                Text("END")
+                    .foregroundColor(.white)
+                    .fontWeight(.heavy)
+            }
+            .padding()
+            .border(.white, width: 1)
+        }
+        .offset(y: 200)
     }
 
 }
