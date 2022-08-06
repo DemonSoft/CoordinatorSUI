@@ -15,6 +15,7 @@ struct ModalView: View {
         ZStack {
             TitlePlace()
             HelloPlace()
+            CoordinatorPlace()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(color)
@@ -45,6 +46,34 @@ struct ModalView: View {
             Spacer()
         }
     }
+    
+    private func CoordinatorPlace() -> some View {
+        HStack {
+            Button {
+                Coordinator.next(state: .root)
+                Coordinator.close()
+            } label: {
+                Text("ROOT")
+                    .foregroundColor(.white)
+                    .fontWeight(.heavy)
+            }
+            .padding()
+            .border(.white, width: 1)
+
+            Button {
+                Coordinator.next(state: .end)
+                Coordinator.close()
+            } label: {
+                Text("END")
+                    .foregroundColor(.white)
+                    .fontWeight(.heavy)
+            }
+            .padding()
+            .border(.white, width: 1)
+        }
+        .offset(y: 200)
+    }
+
 }
 
 struct ModalView_Previews: PreviewProvider {
