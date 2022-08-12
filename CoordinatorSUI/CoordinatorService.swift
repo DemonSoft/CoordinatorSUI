@@ -21,7 +21,6 @@ struct ContainerView : View {
        }
 }
 
-
 final class CoordinatorService: ObservableObject {
     
     enum State {
@@ -35,7 +34,15 @@ final class CoordinatorService: ObservableObject {
     @Published var modalView : ContainerView!
     @Published var container : ContainerView!
 
-    private var stack  = [ContainerView]()
+    private var stack  = [ContainerView]() {
+        didSet {
+            if let view = stack.last {
+                withAnimation {
+                    self.container = view
+                }
+            }
+        }
+    }
     
     private init() {
         self.push(view: ColoredView(index: 0))
@@ -44,14 +51,11 @@ final class CoordinatorService: ObservableObject {
     func pop() {
         guard self.stack.count > 1 else { return }
         self.stack.remove(at: self.stack.count - 1)
-        guard let last = self.stack.last else { return }
-        self.container = last
     }
     
     func push<V: View>(view: V) {
         let containered = ContainerView(view: view)
         self.stack += [containered]
-        self.container = containered
     }
     
     

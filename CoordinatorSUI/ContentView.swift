@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject private var coordinator = Coordinator
+    @StateObject private var coordinator = Coordinator
     
     var body: some View {
         ZStack {
             coordinator.container.view
+                .transition(.move(edge: .trailing))
             if coordinator.modalVisibled {
                 coordinator.modalView
-                    .transition(.move(edge: .bottom))
+                .transition(.move(edge: .bottom))
             }
         }
     }
